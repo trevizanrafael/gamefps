@@ -1,0 +1,156 @@
+<html>
+<head>
+  <title>Open World FPS</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #87CEEB;
+      color: white;
+      font-family: Arial, sans-serif;
+      cursor: pointer;
+    }
+    #instructions, #respawnScreen {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      background-color: rgba(0,0,0,0.5);
+      padding: 20px;
+      border-radius: 10px;
+      z-index: 10;
+    }
+    #instructions h1, #respawnScreen h1 {
+      color: #87CEEB;
+    }
+    #respawnScreen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    #respawnButton {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    #respawnButton:hover {
+      background-color: #45a049;
+      transform: scale(1.05);
+      box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+    }
+    canvas {
+      width: 100%;
+      height: 100%;
+      cursor: none;
+    }
+    #weaponSwitchHUD {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background-color: rgba(0,0,0,0.5);
+      padding: 10px;
+      border-radius: 5px;
+      color: white;
+      display: flex;
+      gap: 10px;
+    }
+    .weapon-slot {
+      border: 2px solid rgba(255,255,255,0.5);
+      padding: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .weapon-slot.active {
+      border-color: white;
+      transform: scale(1.1);
+    }
+    #scopeOverlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, transparent 20%, rgba(0,0,0,0.9) 21%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #scopeCrosshair {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      display: none;
+    }
+    #scopeCrosshair::before, 
+    #scopeCrosshair::after {
+      content: '';
+      position: absolute;
+      background-color: red;
+      transform-origin: center;
+    }
+    #scopeCrosshair::before {
+      width: 20px;
+      height: 2px;
+      left: 50%;
+      top: 50%;
+      transform: translateX(-50%);
+    }
+    #scopeCrosshair::after {
+      width: 2px;
+      height: 20px;
+      left: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  </style>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/",
+        "simplex-noise": "https://cdn.jsdelivr.net/npm/simplex-noise@4.0.1/dist/esm/simplex-noise.js"
+      }
+    }
+  </script>
+  <script type="module" src="game.js"></script>
+</head>
+<body>
+  <div id="instructions">
+    <h1>Open World FPS</h1>
+    <p>Click to start</p>
+    <p>WASD to move</p>
+    <p>Mouse to look around</p>
+    <p>SPACE to jump</p>
+    <p>Click to shoot</p>
+    <p>ESC to pause</p>
+  </div>
+  
+  <div id="respawnScreen">
+    <h1>You Died</h1>
+    <button id="respawnButton">Respawn</button>
+  </div>
+  <div id="scopeOverlay">
+    <div id="scopeCrosshair"></div>
+  </div>
+  <div id="weaponSwitchHUD">
+    <div class="weapon-slot" data-weapon="pistol">Pistol</div>
+    <div class="weapon-slot" data-weapon="sniper">Sniper</div>
+  </div>
+</body>
+</html>
